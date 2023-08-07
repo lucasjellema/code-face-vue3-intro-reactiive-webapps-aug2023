@@ -23,7 +23,7 @@ Useful resources:
     - [Expressions, Script and Vue Attributes](#expressions-script-and-vue-attributes)
     - [Interaction with Nested Components](#interaction-with-nested-components)
   - [Reactive](#reactive)
-    - [Reactive Example - Clock Adjustment](#reactive-example---clock-adjustment)
+    - [First simple steps with Reactive, Computed and Watch](#first-simple-steps-with-reactive-computed-and-watch)
   - [Software Engineering](#software-engineering)
   - [State (optional)](#state-optional)
   - [UI Libraries](#ui-libraries)
@@ -204,6 +204,80 @@ events
 
 ## Reactive
 
+Now the fun really begins. Reactive frameworks like Vue provide built-in two-way bindings between variables and UI elements. When the variable changes, all dependent UI elements are automatically synchronized by the framework. This is a wonderful thing for frontend developers. Simply wonderful.
+
+In the next two labs you will play around with these reactive mechanisms. You will see how to add reactiveness to a variable - by simply wrapping its definition in function `ref()`. That is all it takes. The use of functions *computed* and *watch* take it to the next level. You will see and enjoy!
+
+### First simple steps with Reactive, Computed and Watch
+
+Open a [fresh Vue Playground](https://play.vuejs.org/). 
+
+It contains an example a reactive data element. Type a new message in the input field. You will notice that the heading changes fully synchronized with what you are typing. You
+
+The heading `<h1>` contains the expression `{{msg}}` that refers to the reactive variable `const msg`. The use of `ref` has made this a reactive data element. This element also provide the foundation for the input field, through the attribute `v-model`. When the value in the input field changes, the variable is immediately synchronized and because of the change of the variable, the heading is also immediately updated.
+
+![](images/reactive-msg.png)
+
+Let's add a computed, reactive property that is automatically updated with every change to the *msg* variable. 
+
+Inside `script`, change the import (add *computed*) and add *const MSG* as follows:
+```
+import { ref, computed, watch } from 'vue';
+const MSG = computed(() => msg.value.toUpperCase())
+```
+MSG is a reactive element that always provides the uppercase value of variable *msg*.
+
+Add this element to the `template` - to display the value of MSG:
+```
+<h2>{{MSG}}</h2>
+```
+You will see a second heading in the page. With every change in the input field, you will see the second heading with the uppercase value.
+
+![](images/reactive-computed-property.png)
+
+One other crucial element in the reactive mechanism is the *watcher*. We can register a function as an observer of a reactive variable. The function will be invoked whenever the value of the watched variable changes. 
+
+In this case, register a function to react to a change in the *msg* variable. In this example, it will set the value of a another variable *somethingCompletelyDifferent*. Note: Unless we have special plans with this variable, we do not need the watch function - we could achieve the functionality shown here with just another computed property - or simply with an expression based on the *msg*.
+
+Add an import of function *watch* - similar to *computed* and *ref* simply imported from *vue*. The then define a reactive variable and a watch function like this:
+
+```
+const somethingCompletelyDifferent = ref('')
+watch(msg, async (newMsg, oldMsg) => {  
+  somethingCompletelyDifferent.value= (newMsg === "help"? `URGENTLY HELP REQUESTED`:"")
+  console.log(`value changed from ${oldMsg} to ${newMsg}`)
+})
+```
+Add this expression in the `<template` - for example as the last child.
+
+```
+{{somethingCompletelyDifferent}}
+```
+Now when the value in the input field is equal to help, the message will be amplified. In the console you will find the old and new value - for every change observed by this watch function.
+![](images/watch-function.png)
+
+The full content of *App.vue* at this point is shown below. Deceptively simple - with a lot of moving pieces behind the scenes.
+
+``` 
+<script setup>
+import { ref, computed, watch } from 'vue';
+
+const msg = ref('Hello World!')
+const MSG = computed(() => msg.value.toUpperCase())
+const somethingCompletelyDifferent = ref('')
+watch(msg, async (newMsg, oldMsg) => {  
+  somethingCompletelyDifferent.value= (newMsg === "help"? `URGENTLY HELP REQUESTED`:"")
+  console.log(`value changed from ${oldMsg} to ${newMsg}`)
+})
+</script>
+
+<template>
+  <h1>{{msg}}</h1>
+  <h2>{{MSG}}</h2>
+  <input v-model="msg">
+  {{somethingCompletelyDifferent}}
+</template>
+
 
 ### Reactive Example - Clock Adjustment
 
@@ -269,7 +343,9 @@ To turn this clock into a live clock that does not require a button to be clicke
 setInterval(adjustClock, 1000)
 ```
 
-Every 1000 miliseconds, function *adjustClock* will be invoked and do its thing.
+Every 1000 miliseconds, function *adjustClock* will be invoked and do its thing. Reactivity provides the magic that after the variable *myClock* is updated takes care of updating the web UI. 
+
+Check the final application in this [playground project](https://play.vuejs.org/#eNp9UsFOwzAM/RUrQqJIUzfEDRUEDA5wAAQcc6Bk3siWJlXiwFDVf8dJtbFJaLfY79l+z3Enrtu2/IoozkUVlNctQUCK7aW0ummdJ+jA4xx6mHvXwDFTj6WVdh6tIu0s1LNlDDQ1Tq2KE+ikBWh+clh+1SYiXIDFb7itCYuThCpngzNYGrco3hOkEjlNJW0XcNTtlffvXNSniQZp05l7sqbiry9zpOUO95bQc12xo2oEp5PJJDOq8WCRzXFA2LSGyzkCmEbv0RKQbhB0gG4jo+fhANVHJGK3V8potbqQYs+2FJfXOYacqMYDmxtX4+0UMRIU2PxcL8plcJY3nrclhXJNqw36pzZtNEhxPuwxYbUx7vsh58hHHG3y6hPV6p/8MqxTTopnj4F3gVJsMar9AmmA714fcc3vLdi4WTTMPgC+IH9cTBoH2k20M5a9w8tq7/Pd8F++hbs1oQ0bU0loYvaZLwXf0vSA9T+5Z+VZruNLEP0vWpXrQQ==).
 
 ## Software Engineering
 
