@@ -23,6 +23,7 @@ Useful resources:
     - [Expressions, Script and Vue Attributes](#expressions-script-and-vue-attributes)
     - [Interaction with Nested Components](#interaction-with-nested-components)
   - [Reactive](#reactive)
+    - [Reactive Example - Clock Adjustment](#reactive-example---clock-adjustment)
   - [Software Engineering](#software-engineering)
   - [State (optional)](#state-optional)
   - [UI Libraries](#ui-libraries)
@@ -147,9 +148,14 @@ The `v-for` will loop four times and render *MyComponent* in each iteration. Not
     </p>
 ```
 
-Add this to the `<template>` and you will see three colors displayed - well, their names that is. To add little color for real, add the following the style attribute to the inner `<p>` :  `:style="`background-color:${color}`"`
+Add this to the `<template>` and you will see three colors displayed - well, their names that is. To add little color for real, add the following the style attribute to the inner `<p>` :  ``:style="`background-color:${color}`"``
 
 ![](images/v-for-in-color.png)
+
+You may wonder: what happened here all of a sudden? What is attribute *:style* and what is that expression like value for that weird attribute doing?
+
+I have mentioned before that in addition to using *{{}}* expressions inside *<template>* in all the places where content can be rendered, we can also use expressions when providing the values of attributes. These expressions can be simple JavaScript calculations or String manipulations, they can refer to variable defined in the *script* section of a component or to temporary variables created by *v-for*. To indicate that the value of an attribute is to be interpreted as an expression, we prefix the attribute with a colon, hence the *:style*. A normal value for *style* would be something like `background-color:red`. To make this into a dynamic expression, we create a String using the backticks: ``background-color:red`` and then we replace the hardcoded color *red* with dynamic reference `${color}` that is evaluated to whatever value the variable *color* is holding - red, green or blue.
+
 
 The attribute `v-if` is used to control whether an element is rendered at all. For example, add `v-if="false"` to the `<h3>` element that proclaims *four more*:
 
@@ -199,6 +205,71 @@ events
 ## Reactive
 
 
+### Reactive Example - Clock Adjustment
+
+Open a [fresh Vue Playground](https://play.vuejs.org/). Replace the content of the *App.vue* file with the following content:
+
+```
+<script setup>
+  let myClock = new Date()
+</script>
+
+<template>
+  Current time is {{myClock}}  
+</template>
+```
+
+You will see the date time presented. It is static the time does not change once the page is loaded. Let's add a function that can adjust the clock. Add this snippet inside the `<script> tag.
+
+```
+function adjustClock() {
+  myClock = new Date()
+  console.log(`new clock setting ${myClock}`)
+}
+```
+Let's also add a button to click and invoke this function. Add this snippet inside the template:
+```
+  <button @click="adjustClock()">Adjust Clock</button>
+```
+The button should now be shown. When you click it, the variable *myClock* is assigned a new value. If you look at the *Developer Tools | Console* you should see messages with the latest time. However, the time shown in the webpage does not change. Which is unfortunate.
+
+Here is where the notion of *reactive* is going to help. We are going to turn *myClock* into a reactive variable. We have to do three things:
+
+* import {ref} from 'vue' 
+* define *myClock* as a reactive variable - by using `ref(new Date())` instead of just `new Date()` 
+* modify function *adjustClock* to make it work correctly with *myClock* as reactive variable (by acting on myClock.value instead of just myClock)
+
+To keep seeing the newly set time in the console, you also need to add `.value` to the `${myClock}` expression in `console.log`.
+
+After making these changes, the component has this content :
+
+```
+<script setup>
+import { ref } from 'vue'
+
+function adjustClock() {
+  myClock.value = new Date()
+  console.log(`new clock setting ${myClock.value}`)
+}
+
+let myClock = ref(new Date())
+
+</script>
+
+<template>
+  Current time is {{myClock}}
+  <button @click="adjustClock()">Adjust Clock</button>
+</template>
+```
+The template did not change - only a few small changes in the `script` section. Click on the button to update the time. And again. And again.
+
+To turn this clock into a live clock that does not require a button to be clicked for constant adjustment, you could add the following snippet in the `script` section:
+
+```
+setInterval(adjustClock, 1000)
+```
+
+Every 1000 miliseconds, function *adjustClock* will be invoked and do its thing.
 
 ## Software Engineering
 
