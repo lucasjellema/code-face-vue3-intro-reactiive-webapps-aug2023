@@ -24,6 +24,7 @@ Useful resources:
     - [Interaction with Nested Components](#interaction-with-nested-components)
   - [Reactive](#reactive)
     - [First simple steps with Reactive, Computed and Watch](#first-simple-steps-with-reactive-computed-and-watch)
+    - [Reactive Example - Clock Adjustment](#reactive-example---clock-adjustment)
   - [Software Engineering](#software-engineering)
   - [State (optional)](#state-optional)
   - [UI Libraries](#ui-libraries)
@@ -196,10 +197,15 @@ The button appears in the web page. You can click it, as you are kindly invited 
 
 ### Interaction with Nested Components
 
+A component can be completely independent - not interact at all with the context in which it is used. Do its own thing, render its own content. However, frequently a component can be configured for the context in which it is used. There are three ways we will discuss in which to configure a component for the context:
 
-properties
-slots
-events
+* properties - values passed in by the parent component that the component uses like locally defined variables
+* slots - content fragments injected by the parent component and positioned in the right locations within the component
+* events - messages published by the component to inform the parent component about relevant proceedings
+
+
+See: [Demonstration of Properties and Events in Playground](https://play.vuejs.org/#eNqVVdtuGzcQ/ZXptoXkwJKcGM7DVjZSJy6Qok2Nxi9Ft0Co3VktY4okSK4kV9C/Z0juTb4lMWCYO3M4PHPm4l3yq9bTdY1Jmsxtbrh2YNHV+iKTfKWVcXBT4WXtnJJQGrWCLJnOOpO/mSUddGew3EfYiDyjTOZKWgeLAP6DLVDAORBonCXXBq2FP+n6USYzWdYyd5weqZgsBL4VPL8dC3/jCHYxjhI4FWo5/vSPqiH3ACzgp10A7X/4RGH2PtJ8FvOgDOjD4UoL5pC+AObVy4t3uPKcDAuvqRIkWkeBckU5SJTOzmcEi3ADs3jyetAfLnXtYD1ZqQLFeZYMEsuSFjuL4Ea0S2ZSCPZeyDRwfnC/4tKRUXtluFyCq7httIMNFwJW7BbhjrJfo7kjpbS+Ay4LxIJuv4nIoBxFGeiYJRfzvmaBHDnvk2o5vVPwQTno6/N1XpLwAlkBToHkOVKJbS2c/T5W81lXrOQ4cZZqXvLl9LNVkrqTmgCo+XyZuEDzl/b1oxdS3x5AP1nChFCb34PNmRqPW3teYX77iP2z3Xpb7EU0a8q18zlmluii++rjB9zSuXNS+WtB6GecfyP1a+05Rthl7RM3A1xg+z4MDol6Y6+2DqVtk/JEPXIf8FlC4/T2mdR7uqfT03CPpoFUPJjUhzNuaEboN06pNkpbms8CSy7x2n+N/x2Fthgdw8h3wei/ox6PK+46+BV9ePig3A24vzAoPt0b45qm7QjOLygNwkAIOD6IcBxJtSxiwH0btZ90/9FPegjmh5a2BLOW2s4pJRzX1HKtMwCaHn4Tlslhd46PCLzbxamA/X4+i+DDAFYzef8RF9rB3/WKhase1tPy+yGwP2A8t+5OxOPsBdzEWLSVpGMkr4EXM++aNo+0kgFoZbnvh5SGjoLxNf7SugpuKf5dSjtCUIzJQqj8tvMulCnQTBaK0lql8FJvoaAzrcKFYAMcsXlfhq2zYZQPYSxQMxMlVyFUinYRWwgEn3fDsqvQIJOBu0uiPQRfl9GaW77ggjtiXvGiQNlx2fDCVcT11Yne9okQ26VRxGmSK6Fo3f54dnbWuVtbWZadzT84YYIvSbacuhBN59KsKGgeUzgjQU7uq2VYwWubwuvm/YFI100hgixthoOsD4vFFmE/9MX6f+I3+ZaSG7zZlObV2c+dUWDpiNxJb1nR7HM5iY7J61aaAbXfWIHUBB2rnpDSLA9C95nSv0ZaQ5Fl44aT6akNgMcqy4xRm+dKm6asJIn7CvuuJtX9XsySXvmnxXFKkwwng6S/JgNV737tmuZ5xBNGLwV6lBf3fYOWitJoZoj7U+cHKn2sSJwHLbGpUIaZWqnaIvghOgA9NfdpmLdvGJxwFr2CXaFjewWGtJjCzkn2XwA1820M)
+
 
 
 ## Reactive
@@ -277,7 +283,7 @@ watch(msg, async (newMsg, oldMsg) => {
   <input v-model="msg">
   {{somethingCompletelyDifferent}}
 </template>
-
+```
 
 ### Reactive Example - Clock Adjustment
 
