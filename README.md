@@ -29,6 +29,7 @@ Useful resources:
     - [First simple steps with Reactive, Computed and Watch](#first-simple-steps-with-reactive-computed-and-watch)
     - [Reactive Example - Clock Adjustment](#reactive-example---clock-adjustment)
   - [Software Engineering](#software-engineering)
+    - [Vue Development with Stack Blitz](#vue-development-with-stack-blitz)
   - [State (optional)](#state-optional)
   - [UI Libraries](#ui-libraries)
   - [i18n - internationalization](#i18n---internationalization)
@@ -463,6 +464,41 @@ Every 1000 miliseconds, function *adjustClock* will be invoked and do its thing.
 Check the final application in this [playground project](https://play.vuejs.org/#eNp9UsFOwzAM/RUrQqJIUzfEDRUEDA5wAAQcc6Bk3siWJlXiwFDVf8dJtbFJaLfY79l+z3Enrtu2/IoozkUVlNctQUCK7aW0ummdJ+jA4xx6mHvXwDFTj6WVdh6tIu0s1LNlDDQ1Tq2KE+ikBWh+clh+1SYiXIDFb7itCYuThCpngzNYGrco3hOkEjlNJW0XcNTtlffvXNSniQZp05l7sqbiry9zpOUO95bQc12xo2oEp5PJJDOq8WCRzXFA2LSGyzkCmEbv0RKQbhB0gG4jo+fhANVHJGK3V8potbqQYs+2FJfXOYacqMYDmxtX4+0UMRIU2PxcL8plcJY3nrclhXJNqw36pzZtNEhxPuwxYbUx7vsh58hHHG3y6hPV6p/8MqxTTopnj4F3gVJsMar9AmmA714fcc3vLdi4WTTMPgC+IH9cTBoH2k20M5a9w8tq7/Pd8F++hbs1oQ0bU0loYvaZLwXf0vSA9T+5Z+VZruNLEP0vWpXrQQ==).
 
 ## Software Engineering
+
+So far in this tutorial, we are able to try out the workings of Vue using a very simple environment: the Vue Playground. However, that is not where *real* applications are baked. In a full blown development environment, we will typically work in an IDE (frequently VS Code with the Volar extension for Vue development) and on a machine with Node, npm and a build tool installed (usually Vite). Thanks to the HMR (Hot Module Reload) capability of Vite, we can see changes we make in the sources immediately reflected in the browser running the application.
+
+In addition to assembling a development environment locally on your laptop - which can easily be done - we can also make use of two special types of environments. One is StackBlitz, based on web container technology and running completely inside a browser. It may sound odd: there is a server (Node) running inside your browser. Yet that is really what it is. The other type of development environment I would like to mention is the ephemeral kind: a cloud based VM that run everything you need, without you having to install or maintain any of it. Examples are Gitpod.io and GitHub Codespaces.
+
+We will take a look now at StackBlitz and Gitpod.io. Note: for the latter, you need a GitHub or GitLab account.
+
+### Vue Development with Stack Blitz
+
+Open a clean Vue development environment in a browser by clicking on this link: [https://vite.new/vue](https://vite.new/vue).
+
+Look closely at what happens in the browser. It looks like VS Code - on the left hand side are the file navigator and icons for various options. In the center of the screen is the file editor. And - after a little wait - you will see the running application on the right hand side. It took a while for the application to start running because first the necessary npm packages had to be installed.
+
+![](images/stackblitz-vanilla-vue-app.png)
+
+Open file *package.json*. It contains several areas of interest:
+* dependencies and devDependencies - these list the npm packages that the application requires, either at run time or at develop & build time; when we add new dependencies to the application - as we will be doing shortly - new entries are added into this file
+* scripts - various actions can be performed by our build tool - such as run the application for development purposes (with hot reload of modules) and build the application for deployment. These actions are executed through scripts that are defined here
+
+Open file *App.vue*. Locate the component *HelloWorld* and change the value of the *msg* attribute to *"You, Vite + Vue"*. Or make some other change. You should see your modification reflected in the running app immediately.
+
+In the bottom of the center pane is the terminal window. This is where currently the *dev* script is executed by *npm*. Click on that pane and press `ctrl+c` (or `cmd+c`) to stop the current terminal session. You can now perform execute Linux commands, including installation of npm packages. You can run the application again by executing the command `npm run dev`.
+
+![](images/terminal-stackblitz.png)
+
+You can do several additional interesting things with StackBlitz:
+* connect to GitHub and create a new repository from the current workspace or import an existing repository
+* share a link to the StackBlitz workspace and allow other users to start working from the same set of source you have (but their clone of those sources - I think)
+* download the project as a zip-file
+
+Check out the [StackBlitz Documentation](https://developer.stackblitz.com/)
+
+
+
+
 
 * StackBlitz
 * Gitpod
