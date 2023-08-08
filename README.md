@@ -22,6 +22,9 @@ Useful resources:
     - [Child Component](#child-component)
     - [Expressions, Script and Vue Attributes](#expressions-script-and-vue-attributes)
     - [Interaction with Nested Components](#interaction-with-nested-components)
+      - [Properties](#properties)
+      - [Events](#events)
+      - [Slots](#slots)
   - [Reactive](#reactive)
     - [First simple steps with Reactive, Computed and Watch](#first-simple-steps-with-reactive-computed-and-watch)
     - [Reactive Example - Clock Adjustment](#reactive-example---clock-adjustment)
@@ -203,10 +206,112 @@ A component can be completely independent - not interact at all with the context
 * slots - content fragments injected by the parent component and positioned in the right locations within the component
 * events - messages published by the component to inform the parent component about relevant proceedings
 
+Open this [Vue Playground Example](https://play.vuejs.org/#eNqNVFFP2zAQ/iunTJMGok0BlYesoA3GJPawocFjXtzk0hhc27Kdtgzx33d2Wict0O0hkuPvs++77+78nHzVerhoMMmSiS0M1w4sukZf5JLPtTIO7mu8bJxTEiqj5pAnwzRu+ZN5kstcTtL2NJ2jH4dzLZhD+gOY1McX33CupHWGOU4XqQokWoclFIqCSJTOTlKitXQDaVitw14yk0FAYtyLSachUJks91MmadSUHCXOFkpWfDZ8sEpS6s/+bJ54NVyg+aW9TJsnGQTEY0wItfwR9pxp8GizX9RYPL6x/2BXfi9Pbg1aNAvyKWKOmRm6Fr6++4krWkdwrspGEHsP+ButEo3X2NIuG1mS7B4vqL0JBeRydm+vVw6l3STlhXrmS+DnCVXxak/qndzT4Wk4l8sXcnGrDV43kKFWoI+ctg5qqpDAK8GLRziHT7igmh/A+QVFIc7Lhty1kf/p2oj+vJaJhkIwa89JlFLCcZ0nEQyEadszXwofiWi9uJ8OiBxWk7SlbR+1msnd612wvz0FdK+rEdqzpJT4nbK0zbjXZ+HXuifRLtNDuG8vpa6XjnGJBg5TDw3X0Voz/HVaWe4LkYFBuowv8PMGKrml+58y4FLQHYOpUMVjRKfKlGgGU0Ua5xkc6xWUtKZRmwrW45GamwqeVANLJp3nWKAuIkk+xVot0LCpQPAGrFXGIvUy6cExic0iYDGjBbd8ygV3pLzmZYkyalny0tWk9WSkV10ipHZmFGkaFEooegI+jMfjCG/2qqqKez7ggAk+I9sK6i80EdKsLGkQMhiTIaNdtwwreWMzOFvH75l0uy5EsGWTYS/r7WKxaRjMrlh/BpxMXVFyvZjr0pyMP8ZNgZUjcaNuZ05Dx+WgBQZnG2t60r6zEqkJoqpOkNKsCEZ3mdLTS/PfqlzDMBqe2kB4q7LMGLXcV9osYxVZ3FXYdzW57h+kPOmcf98cpzTZMOol/S8bqHq7tVs3zxtIGL0MKCgvd7FeS7XWaGZI+3vrVy7d1WTOq5ZY1ijDTM1VYxH8EG2R3pv7LMzbfwxOWIvOwVjotr2CQnqYwpuTvPwF1KaoLA==).
 
-See: [Demonstration of Properties and Events in Playground](https://play.vuejs.org/#eNqVVdtuGzcQ/ZXptoXkwJKcGM7DVjZSJy6Qok2Nxi9Ft0Co3VktY4okSK4kV9C/Z0juTb4lMWCYO3M4PHPm4l3yq9bTdY1Jmsxtbrh2YNHV+iKTfKWVcXBT4WXtnJJQGrWCLJnOOpO/mSUddGew3EfYiDyjTOZKWgeLAP6DLVDAORBonCXXBq2FP+n6USYzWdYyd5weqZgsBL4VPL8dC3/jCHYxjhI4FWo5/vSPqiH3ACzgp10A7X/4RGH2PtJ8FvOgDOjD4UoL5pC+AObVy4t3uPKcDAuvqRIkWkeBckU5SJTOzmcEi3ADs3jyetAfLnXtYD1ZqQLFeZYMEsuSFjuL4Ea0S2ZSCPZeyDRwfnC/4tKRUXtluFyCq7httIMNFwJW7BbhjrJfo7kjpbS+Ay4LxIJuv4nIoBxFGeiYJRfzvmaBHDnvk2o5vVPwQTno6/N1XpLwAlkBToHkOVKJbS2c/T5W81lXrOQ4cZZqXvLl9LNVkrqTmgCo+XyZuEDzl/b1oxdS3x5AP1nChFCb34PNmRqPW3teYX77iP2z3Xpb7EU0a8q18zlmluii++rjB9zSuXNS+WtB6GecfyP1a+05Rthl7RM3A1xg+z4MDol6Y6+2DqVtk/JEPXIf8FlC4/T2mdR7uqfT03CPpoFUPJjUhzNuaEboN06pNkpbms8CSy7x2n+N/x2Fthgdw8h3wei/ox6PK+46+BV9ePig3A24vzAoPt0b45qm7QjOLygNwkAIOD6IcBxJtSxiwH0btZ90/9FPegjmh5a2BLOW2s4pJRzX1HKtMwCaHn4Tlslhd46PCLzbxamA/X4+i+DDAFYzef8RF9rB3/WKhase1tPy+yGwP2A8t+5OxOPsBdzEWLSVpGMkr4EXM++aNo+0kgFoZbnvh5SGjoLxNf7SugpuKf5dSjtCUIzJQqj8tvMulCnQTBaK0lql8FJvoaAzrcKFYAMcsXlfhq2zYZQPYSxQMxMlVyFUinYRWwgEn3fDsqvQIJOBu0uiPQRfl9GaW77ggjtiXvGiQNlx2fDCVcT11Yne9okQ26VRxGmSK6Fo3f54dnbWuVtbWZadzT84YYIvSbacuhBN59KsKGgeUzgjQU7uq2VYwWubwuvm/YFI100hgixthoOsD4vFFmE/9MX6f+I3+ZaSG7zZlObV2c+dUWDpiNxJb1nR7HM5iY7J61aaAbXfWIHUBB2rnpDSLA9C95nSv0ZaQ5Fl44aT6akNgMcqy4xRm+dKm6asJIn7CvuuJtX9XsySXvmnxXFKkwwng6S/JgNV737tmuZ5xBNGLwV6lBf3fYOWitJoZoj7U+cHKn2sSJwHLbGpUIaZWqnaIvghOgA9NfdpmLdvGJxwFr2CXaFjewWGtJjCzkn2XwA1820M)
+This example consists of two files:
+* App.vue - the starting point of the application; it imports a custom component (TheButton) and includes it twice in the *template*
+* TheButton.vue - the definition of the custom component *TheButton*. It renders a button with a tooltip that appears when the mouse hovers over the button. When the button is clicked, local function *handleClick* is invoked. The function currently does nothing.
+
+#### Properties
+
+Instead of the fixed label *Click* we will now allow a property *label* to be passed to the component. In order to accomplish this:
+
+1. In TheButton.vue, add `const props = defineProps(['label'])` to the *<script setup>* 
+2. In TheButton.vue, change the string *label* to `{{label}}` - referring to the new property of that name
+3. In App.vue, add an attribute *label* to both occurrences of `TheButton`:
+   * <TheButton label="Click Me"></TheButton> 
+   * <TheButton label="Do Not Press Me"></TheButton> 
+
+At this point, both buttons are displayed with their own individual label, that was passed from *App.vue*.
+
+Let's also given them their own tooltip text. We use a property *hint* to configure the tooltip text on TheButton:
+
+1. In TheButton.vue, add the property *hint* to *props* so its definition reads `const props = defineProps(['label','hint'])`  
+2. In TheButton.vue, change the string *Click on the button* to `{{hint}}` - referring to the new property of that name
+3. In App.vue, add an attribute *hint* to both occurrences of `TheButton`:
+   * <TheButton label="Click Me" hint="pressing this button will make you very happy indeed"></TheButton> 
+   * <TheButton label="Do Not Press Me" hint="pressing this button will not lead to nice results"></TheButton> 
+
+Hover over the button with your mouse to see the effect of passing a tailored *hint* to each of the buttons.
+#### Events
+
+We would like to handle the click on the button in the parent component. To TheButton, the click on the button has no specific meaning. That component lives to attract the mouse and detect the click on the button. And let the world know about it. In order for a component to be able to tell the world about an event such as a button click, the component declares the event(s) it may at some point emit. 
+
+In TheButton.vue, add `const emit = defineEmits(['buttonClick'])` to the *<script setup>*. 
+This is a declaration that the component may inform its parent through a *buttonClick* event (note: this is a custom name, the event could have been called *enormouslyImportantEarthMovingButtonEvent* ).
+
+Add this line to the function *handleClick* - that already is called whenever the button is clicked.
+```
+  emit('buttonClick', props['label'])
+```
+With this line, the *buttonClick* event is published and it is given a payload. We can assign any object as payload to an event. In this case, we take the value of the *label* property that was passed in to this instance of TheButton and include it in the event.
+
+Handling an event on custom component is done in the same way we handle any event on any HTML tag: through a handler function that is associated to the event with a `@eventName` attribute. 
+
+In *App.vue* add attribute `@buttonClick="handleClick"` to both instances of *TheButton*. This specifies that when the *buttonClick* event is emitted from TheButton, in both cases a local function *handleClick* should be invoked. You have to add that function as well:
+
+```
+function handleClick(label) {
+  console.log(`You clicked ${label}!`)
+}
+```
+The input parameter for this event handling function is the payload of the event it is invoked to handle. 
+
+Feel free to click both buttons repeatedly and intermittently. Check in the `console` for the event handling result that should prove that the parent (*App.vue*) is informed correctly about the buttons being pressed.
+
+The Playground should now look as [in this link](https://play.vuejs.org/#eNqVVduO2zYQ/ZWp2sJ2sL4kC+dB9S7STbZACjRdNPtSVAVCSyOLWYokSMqXGv73DilZkr2Xpg8GKM7hzJmZM+N99LPWk3WFURwtbGq4dmDRVfo6kbzUyji4L/Cmck5JyI0qIYkm0/bKv0yiRCYyr2TqOIEKJjOB7wVPH4aCLVGMYJ9IgFRJqwROhFoNv/ypKkg9BDP4YR9gh+++jBJ58L4W05oJcaAPh6UWzCF9ASyK19cfsCRfzrAQT+Ug0TpylCoiLFE6u5gSrIYbmIZTk8INMzGQ0y6pEPwqiQJj+I3SgYJLRzfaoLVcrsAV3MKyhm+4EFCyB4Qd5bBGs6OMtd4BlxliRq/f1cjgj7z06pFE14uudoEWGYkOEX1M6IOCT8rBnWfxjbwk4QWyDJwCyVMEQlbC2f/HajFtSx5dRM5S53K+mny1SpJKQjOTyBebCzS/a98FihDXbfY2JoTa/BrunKnw4nifFpg+PHH/1W79XRL5XNGsKdfW5phZoavNt58/4ZbOrbFUWSUI/YLxDyTVVZ5jDbupfOKmhwtsPwatU1Hv7e3WobTHpDxRjzwEfBKR4N+/kHpH93JyGd6RpqmKJxPzeNYMKZ1+fkZcf4LgCoa4JkmP4Ooa9hSBUABYcjcc9Do6uABtlLZ/DYJ6Bn+PPPDQ+QxW8pZhziXe+a/hEXwx8MJq3tRwH6BF39KHR/fj1eBuUP1HN6iBJIla05Aza0lvTinhuCatHY0B0Ij3XdgFp7Icjgi8b3bDYTGtoafPrWbyPIQLKqCXPin/0IM6StO62j2Nh0/rdqI+Tl/Bfe3JryzHqAAGXk29adKEoHY37rSy3IsgpkkjZ3yNPx1NGbfkfxfTYhDkY7wUKn1orUtlMjTjpaKkyhhe6y1kdKYtthSshyM2H/OwajZMOo+xQAomSq5AKBQtILYUCD7rhmXo+lkmPXObxPEQbG1Ga275kgvuiHnBswxly2XDM1cQ1zczve0SIbYro4jTOFVC0Xb9fj6ft+bjXZ7n7Z0POGaCr6hsKWkbTWvSLMtoCGOYU0Fm59UyLOOVjeFtE79XpLumEaEsxwx7WZ82iy3DUuia9c/Yr+8tJdeL2bTmzfzH9lJg7ojcrLspaeC5HNeG8dtjaXrUfmEZkghaVh0hpVkaCt1lSv9qtHtqlo0ZZpNLGwBPdZYZozYvtTaOWU4l7jrsVU1V98swibrKP18cpzSVYdZL+r/KQN07710jnicsYfRioKA8O7f1JFWXRjND3J87P6rS54KK80gSmwJlmKlSVRbBD9EJ6Lm5j8O8fcPghLPoKtg2upZXYEiLKeyc6PAvM05AHA==).
 
 
+#### Slots
+
+A custom component can allow its parent to pass in a *template* with content to render. The custom component includes in its own *template* designated areas for these slots. The spots where parent content is to be rendered.
+
+Let's create a slot in TheButton. Note: nothing about this example is especially pretty or useful. Except that it shows the way slots can be used.
+
+In *TheButton.vue*, add a <slot /> after the expression `{{label}}` in the *button* element:
+```
+<button @click="handleClick()">{{label}}<slot></slot></button>
+```
+This is our declaration of the fact that any content added by the parent component to an instance of *TheButton* is to be rendered on the button, immediately after the label.
+
+Use this new capability in the parent, *App.vue*. Change the first TheButton to:
+``` 
+<TheButton label="Click Me" hint="pressing this button will make you very happy indeed" @buttonClick="handleClick">
+  <div>We would like <i>to emphasize</i> the <span style="color:red">importance</span></div>
+</TheButton>
+```
+As I said, it is not particularly pretty or useful in this example. But the power of slots is real!
+
+We are not limited to single slot either. Slots can be named and there can be many of them in a component.
+
+We can extend *TheButton* with two more slots - called *prompt* and *tooltip*:
+
+``` 
+<template>
+    <p class="tooltip">
+        <slot name="prompt"></slot>
+        <button @click="handleClick()">{{ label }}<slot></slot></button>
+        <span class="tooltiptext">{{ hint }}<slot name="tooltip"></slot></span>
+    </p>
+</template>
+```
+These slots allow the parent to inject content that is rendered in controlled spots by TheButton. 
+
+Here is an example of how the parent - *App.vue* in this case - can make use of these additional slots. Again - to demonstrate the mechanism, not to show the best possible example of how valuable it can be.
+
+```
+  <TheButton label="Click Me"  @buttonClick="handleClick">
+    <template v-slot:prompt><span >An Awesome opportunity </span></template>
+    <div>We would like <i>to emphasize</i> the <span style="color:red">importance</span></div>
+    <template v-slot:tooltip><span style="color:orange">pressing this button will make you <i>very</i> happy indeed</span></template>
+  </TheButton>
+```
+
+In this example, the slots' content fragments are defined in the order in which the slots are defined in TheButton. While probably best from a readability and maintenance point of view, you can define the slot templates in any order you like. 
+
+Note: if a slot definition in a component contains content, then that is considered the default or fallback. This predefined slot-content is rendered in case the parent does not define content for that particular slot.
+
+[This playground](https://play.vuejs.org/#eNqNVmtv2zYU/St32oY4RWynDdIPmmM0aTOgA9YFa4BhmAeUlmiLDUUKJOVHA//3HVJPO3G6DwZE3qN7zz33IT9G10UxWpU8iqOJTYwoHFnuymI6UyIvtHF0n/Gb0jmtaGF0TrNoNG6v/JuzaKZmalGqxAmAMqZSyd9LkTwMJJtzeUqPM0WUaGW15COpl4Mvf+uSEg/hKf30GGC7H76cztTO+5qMKybggIPjeSGZ4zgRTbLX0w88hy9nWIinF6S4dXCUaBBWXDk7GQNWwQ2Nw1Odwg0zcTB0WYXoV7MoUKbfkQ/Ru3mwhSuYejnNouAOHhpetBpaqV1cQB1wntiCKZpeK7pec6tzTrrwOpZKuC0hNZink/FeVvCWitX0L05rXcqUpHjgNBFTpwmwjFnxjU/GYkouw30IYN1WclBLtNQmNjwFsapgTCUA12G82yN8ndbSiaImvO9PG6aWUGJaGG6tUEtEFpYqVWgtpKScgeMWdQTPFTfbwC9jRbEloVLO0+dTnXTNE85Q9kg9Pmj6pB3deQZVWTKhHAzHOSngJWcpQTglEk5AltJZvPvdiu4T67GOziJn0b0LsRx9tVphUkJDe63yQkhu/ih8JyJKXLW6tzEp9fq3cOdMyc+a+yTjycMz91/txt/NIp8vNyvk29ocM0vuKvPt5098g+fWmOu0lEC/YPwTfShLz7GC3ZQ+edPDBbYfQ/tA2Ht7u3Fc2SYpT9QjdwE/izD0719IvaN7MboI72GuoeLe1ni6bwymHT+/J1x/i9AVDfgKY31KV1NEAcbH4blwg5NeVU/OCCNY2H9OQged/HvqobvOZ7DCW8oXQvE7fxo04DM68d1Vv1ThfYQWfouDh/cDVuBuW/lD1+w1z0mBTcesRdPVE+cbrjYGgJ9GUiz341ctESDgFdf7wLrV34XNud/Eg1O88/hYDQ/tdsFp42Qyrt48COvH/oCaC+3jHXk1Gj8NuY5/6ziMeJvquCpjf+T9MeyW8Dh+RfeVE/89cAzCGno19qZR7b2rcKGt8N0VY4zhTKz4L40pFRb+tzFWjYSP4Vzq5KG1zrVJuRnONZLOY3pdbCjFMz4Rc8l6OLD5uAg7bM2QLTCWMBqg5PdsprHW2Fxy8qrULEM7HWTSM7dJNA/B1ma0ElbMhcSHIIbAacpVy2UtUpeB65vzYtMlArZLo8FpWO1l+vHy8rI1N3eLxaK98wGHTIolZEswNNy0poKlKaY7pksIcn6olmGpKG1Mb+v4PZHu6kIEWZoMe1nvF4vNw7bpivVt6D8IGyTXi1mX5s3lz+2l5AsHcufdTY5NItSwMgzfNtL0qP3KUo4maFl1hHTBkiB0lyn+MmCpVSxrM52PLmwAPFdZZoxev1TaOGYLSNxV2Hc1VPdbdhZ1yh8Xx+kCMpz3kv6eDKjeYe3q5nnGEkYvJgQV6aGt11KVNAUz4H7s+YlKnzOI86Ql1hlXYaZyXVr8+cEQ7YGOzX0c5u1/DE54lp2CbaGr9goMsZjCzol2/wFIXre7) has the complete situation that you probably now also have arrived at.
 
 ## Reactive
 
