@@ -230,7 +230,7 @@ Let's also given them their own tooltip text. We use a property *hint* to config
 2. In TheButton.vue, change the string *Click on the button* to `{{hint}}` - referring to the new property of that name
 3. In App.vue, add an attribute *hint* to both occurrences of `TheButton`:
    * `<TheButton label="Click Me" hint="pressing this button will make you very happy indeed"></TheButton>` 
-   * `<TheButton label="Do Not Press Me" hint="pressing this button will not lead to nice results"></TheButton>`` 
+   * `<TheButton label="Do Not Press Me" hint="pressing this button will not lead to nice results"></TheButton>` 
 
 Hover over the button with your mouse to see the effect of passing a tailored *hint* to each of the buttons.
 #### Events
@@ -313,6 +313,9 @@ Note: if a slot definition in a component contains content, then that is conside
 
 [This playground](https://play.vuejs.org/#eNqNVmtv2zYU/St32oY4RWynDdIPmmM0aTOgA9YFa4BhmAeUlmiLDUUKJOVHA//3HVJPO3G6DwZE3qN7zz33IT9G10UxWpU8iqOJTYwoHFnuymI6UyIvtHF0n/Gb0jmtaGF0TrNoNG6v/JuzaKZmalGqxAmAMqZSyd9LkTwMJJtzeUqPM0WUaGW15COpl4Mvf+uSEg/hKf30GGC7H76cztTO+5qMKybggIPjeSGZ4zgRTbLX0w88hy9nWIinF6S4dXCUaBBWXDk7GQNWwQ2Nw1Odwg0zcTB0WYXoV7MoUKbfkQ/Ru3mwhSuYejnNouAOHhpetBpaqV1cQB1wntiCKZpeK7pec6tzTrrwOpZKuC0hNZink/FeVvCWitX0L05rXcqUpHjgNBFTpwmwjFnxjU/GYkouw30IYN1WclBLtNQmNjwFsapgTCUA12G82yN8ndbSiaImvO9PG6aWUGJaGG6tUEtEFpYqVWgtpKScgeMWdQTPFTfbwC9jRbEloVLO0+dTnXTNE85Q9kg9Pmj6pB3deQZVWTKhHAzHOSngJWcpQTglEk5AltJZvPvdiu4T67GOziJn0b0LsRx9tVphUkJDe63yQkhu/ih8JyJKXLW6tzEp9fq3cOdMyc+a+yTjycMz91/txt/NIp8vNyvk29ocM0vuKvPt5098g+fWmOu0lEC/YPwTfShLz7GC3ZQ+edPDBbYfQ/tA2Ht7u3Fc2SYpT9QjdwE/izD0719IvaN7MboI72GuoeLe1ni6bwymHT+/J1x/i9AVDfgKY31KV1NEAcbH4blwg5NeVU/OCCNY2H9OQged/HvqobvOZ7DCW8oXQvE7fxo04DM68d1Vv1ThfYQWfouDh/cDVuBuW/lD1+w1z0mBTcesRdPVE+cbrjYGgJ9GUiz341ctESDgFdf7wLrV34XNud/Eg1O88/hYDQ/tdsFp42Qyrt48COvH/oCaC+3jHXk1Gj8NuY5/6ziMeJvquCpjf+T9MeyW8Dh+RfeVE/89cAzCGno19qZR7b2rcKGt8N0VY4zhTKz4L40pFRb+tzFWjYSP4Vzq5KG1zrVJuRnONZLOY3pdbCjFMz4Rc8l6OLD5uAg7bM2QLTCWMBqg5PdsprHW2Fxy8qrULEM7HWTSM7dJNA/B1ma0ElbMhcSHIIbAacpVy2UtUpeB65vzYtMlArZLo8FpWO1l+vHy8rI1N3eLxaK98wGHTIolZEswNNy0poKlKaY7pksIcn6olmGpKG1Mb+v4PZHu6kIEWZoMe1nvF4vNw7bpivVt6D8IGyTXi1mX5s3lz+2l5AsHcufdTY5NItSwMgzfNtL0qP3KUo4maFl1hHTBkiB0lyn+MmCpVSxrM52PLmwAPFdZZoxev1TaOGYLSNxV2Hc1VPdbdhZ1yh8Xx+kCMpz3kv6eDKjeYe3q5nnGEkYvJgQV6aGt11KVNAUz4H7s+YlKnzOI86Ql1hlXYaZyXVr8+cEQ7YGOzX0c5u1/DE54lp2CbaGr9goMsZjCzol2/wFIXre7) has the complete situation that you probably now also have arrived at.
 
+It looks as shown in the screenshot:
+![](images/playground-nestedcomponent-slots-events-properties.png)
+
 ## Reactive
 
 Now the fun really begins. Reactive frameworks like Vue provide built-in two-way bindings between variables and UI elements. When the variable changes, all dependent UI elements are automatically synchronized by the framework. This is a wonderful thing for frontend developers. Simply wonderful.
@@ -389,7 +392,8 @@ watch(msg, async (newMsg, oldMsg) => {
   {{somethingCompletelyDifferent}}
 </template>
 ```
-
+This is what it looks like in the [Vue Playground](https://play.vuejs.org/#eNp9Uttu2zAM/RVOGBAHyFysfcviDFtrtBvarssFwwA9xLDpSydLhiQnKQz/+ygZzvbQ5sGwdMhDnkOqY1+aJty3yOZsYVJdNRYM2rZZclnVjdIWOtCYzyBVddNazGZwSGxaQg+5VjVMiDv5xCWXqZLGQm0KiBwjmNyhEAp+KS2yd5PpmPCwvqWEsVoQTCFaOla4T0SLoVXbpkF9nRgMpieSUTXaspLFNfEEWhQvN1Weo0Zpx3auhZcWULUZJOZFphBIPDy4qxIZ/X2zDoBLOFtzEBONdIiiCDgrUTScfYbddnUbP27uf8NdfP8Eq/jnNl5v4pvdnDPOSAaQP2mUwFCoItj5YpCWiSwwG8b2vhsE9WAVXYY2/Y64PX2Li2EVtAS6WCR9iUW6ASzKj8uuI4d9v7ig84BdEkaD9djlgFWSBgz7D7XKUEScEYUzH+q6c9b73vU/9WQzZg25yasifDZK0jvpXBHO3AorgfpHYytyy9kcfMTFEtr84bvHrG5xNuJpiemfV/Bnc3QYZ08aDeo9cnaK2UQXaIdwvH7EI51PQXLXCso+E1whbaJ1Goe0r63MSPZ/eV7tN//aaSYbEx8tSjOackJdZu/zOaMH78b2lvV/cq/CK8+jnbL+L0IOJuI=)
+![](images/reactive-computed-watcher-playground.png)
 ### Reactive Example - Clock Adjustment
 
 Open a [fresh Vue Playground](https://play.vuejs.org/). Replace the content of the *App.vue* file with the following content:
