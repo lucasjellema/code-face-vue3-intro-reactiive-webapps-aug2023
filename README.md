@@ -158,7 +158,7 @@ Add this to the `<template>` and you will see three colors displayed - well, the
 
 You may wonder: what happened here all of a sudden? What is attribute *:style* and what is that expression like value for that weird attribute doing?
 
-I have mentioned before that in addition to using *{{}}* expressions inside *<template>* in all the places where content can be rendered, we can also use expressions when providing the values of attributes. These expressions can be simple JavaScript calculations or String manipulations, they can refer to variable defined in the *script* section of a component or to temporary variables created by *v-for*. To indicate that the value of an attribute is to be interpreted as an expression, we prefix the attribute with a colon, hence the *:style*. A normal value for *style* would be something like `background-color:red`. To make this into a dynamic expression, we create a String using the backticks: ``background-color:red`` and then we replace the hardcoded color *red* with dynamic reference `${color}` that is evaluated to whatever value the variable *color* is holding - red, green or blue.
+I have mentioned before that in addition to using *{{}}* expressions inside *template* in all the places where content can be rendered, we can also use expressions when providing the values of attributes. These expressions can be simple JavaScript calculations or String manipulations, they can refer to variable defined in the *script* section of a component or to temporary variables created by *v-for*. To indicate that the value of an attribute is to be interpreted as an expression, we prefix the attribute with a colon, hence the *:style*. A normal value for *style* would be something like `background-color:red`. To make this into a dynamic expression, we create a String using the backticks: ``background-color:red`` and then we replace the hardcoded color *red* with dynamic reference `${color}` that is evaluated to whatever value the variable *color* is holding - red, green or blue.
 
 
 The attribute `v-if` is used to control whether an element is rendered at all. For example, add `v-if="false"` to the `<h3>` element that proclaims *four more*:
@@ -219,8 +219,8 @@ Instead of the fixed label *Click* we will now allow a property *label* to be pa
 1. In TheButton.vue, add `const props = defineProps(['label'])` to the *<script setup>* 
 2. In TheButton.vue, change the string *label* to `{{label}}` - referring to the new property of that name
 3. In App.vue, add an attribute *label* to both occurrences of `TheButton`:
-   * <TheButton label="Click Me"></TheButton> 
-   * <TheButton label="Do Not Press Me"></TheButton> 
+   * `<TheButton label="Click Me"></TheButton>` 
+   * `<TheButton label="Do Not Press Me"></TheButton>`
 
 At this point, both buttons are displayed with their own individual label, that was passed from *App.vue*.
 
@@ -229,8 +229,8 @@ Let's also given them their own tooltip text. We use a property *hint* to config
 1. In TheButton.vue, add the property *hint* to *props* so its definition reads `const props = defineProps(['label','hint'])`  
 2. In TheButton.vue, change the string *Click on the button* to `{{hint}}` - referring to the new property of that name
 3. In App.vue, add an attribute *hint* to both occurrences of `TheButton`:
-   * <TheButton label="Click Me" hint="pressing this button will make you very happy indeed"></TheButton> 
-   * <TheButton label="Do Not Press Me" hint="pressing this button will not lead to nice results"></TheButton> 
+   * `<TheButton label="Click Me" hint="pressing this button will make you very happy indeed"></TheButton>` 
+   * `<TheButton label="Do Not Press Me" hint="pressing this button will not lead to nice results"></TheButton>`` 
 
 Hover over the button with your mouse to see the effect of passing a tailored *hint* to each of the buttons.
 #### Events
@@ -468,6 +468,7 @@ Check the final application in this [playground project](https://play.vuejs.org/
 
 ## UI Libraries
 
+Suppose you have a
 
 
 ## i18n - internationalization
