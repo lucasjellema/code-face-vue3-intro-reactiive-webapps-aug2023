@@ -471,6 +471,12 @@ In addition to assembling a development environment locally on your laptop - whi
 
 We will take a look now at StackBlitz and Gitpod.io. Note: for the latter, you need a GitHub or GitLab account.
 
+One thing you may also enjoy during Vue application development is the browser extension for Vue, available for the major browsers:
+* [Chrome Extension](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+* [Firefox Addon](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+* [Edge Extension](https://microsoftedge.microsoft.com/addons/detail/vuejs-devtools/olofadcdnkkjdfgjcmjaadnlehnnihnl)
+
+
 ### Vue Development with Stack Blitz
 
 Open a clean Vue development environment in a browser by clicking on this link: [https://vite.new/vue](https://vite.new/vue).
@@ -506,9 +512,215 @@ Check out the [StackBlitz Documentation](https://developer.stackblitz.com/)
 
 ## State (optional)
 
+
+
+start new StackBlitz Vue application - https://vite.new/vue?terminal=dev 
+
+open StackBlitz project at: 
+
+https://stackblitz.com/edit/vitejs-vite-2epp3c?file=src%2FApp.vue&terminal=dev
+
+Folder *src/stores* contains a file called *people.csv*. Using test data generator Mockaroo, I have generated 150 records of non existent people. I would like this file to provide some of the state for the application - at least until I can invoke a proper REST API to get my data.
+
+We will use Pinia and create a simple state store to make the people data from this file available to components in the Vue application.
+
+In terminal, execute this next line to add the dependency on the Pinia package to the project:
+```
+npm install pinia --save
+```
+This will install Pinia and add a dependency in *package.json*.
+
+To initialize Pinia in a Vue application, you need to add two lines in *main.js*, and make that file look as is shown below:
+
+```
+import { createApp } from 'vue';
+import './style.css';
+import { createPinia } from 'pinia';  // ADD THIS LINE 
+import App from './App.vue';
+
+const app = createApp(App);
+app.use(createPinia());  // ADD THIS LINE TOO
+app.mount('#app');
+```
+
+Next, we have to create the file that defines the store. Create a new file, called peopleStore.js in the folder src/stores.
+
+Copy this code to the new file
+```
+import { defineStore } from 'pinia';
+import peopleRecords from './people.csv';
+
+export const usePeopleStore = defineStore({
+  id: 'people',
+  state: () => ({
+    people: peopleRecords,
+  }),
+  getters: {
+    peopleCount: (state) => {
+      return state.people.length;
+    },
+  },
+  actions: {},
+});
+```
+
+The data from the csv file is loaded into the local variable peopleRecords - an array of objects with the names of the fields in the first row of the CSV file (the headers) as the names of the properties.
+
+The store object is defined with state containing a single property called *people*. The store also exposes a getter method that exposes the derived, computed value of the number of people on the state collection.
+
+Using the peopleStore, we can now flesh out the App.vue file and display some real people information.
+
+Edit file *App.vue* and paste in the contents shown below. This code imports the peopleStore through the usePeopleStore function. Using this function, the store is locally made available. In the template, both the *peopleCount* getter function and the *people* state property are accessed. The latter is used to iterate - producing a list item element for every person in the collection.
+
+Note that *App.vue* does not contain any code for retrieving the CSV records from file or API. This component simply leverages the store and is shielded from how that data is retrieved and managed.
+
+```
+<script setup>
+  import { usePeopleStore } from './stores/peopleStore';
+
+  const peopleStore = usePeopleStore();
+</script>
+
+<template>
+  <h1>{{ peopleStore.peopleCount }}People</h1>
+  <ul>
+    <li v-for="person in peopleStore.people">
+      {{ person.first_name }} {{ person.last_name }} ({{ person.city }})
+    </li>
+  </ul>
+</template>
+```
+
 ## UI Libraries
 
-Suppose you have a
+There are many UI Component libraries for Vue. Libraries that you can easily include in your application and whose components can be used as easily as any custom component you create yourself. Many of these freely available components are visually appealing and functionally rich. These components allow us to tremendously speed up our productivity and produce far better results. Even for newbie Vue developers (or perhaps especially for newbie Vue developers?), these components can be a big boon.
 
+Let's take a look at one of these libraries - PrimeVue. Explore the PrimeVue UI Components library at [https://primevue.org/](https://primevue.org/). Check out the [DataTable](https://primevue.org/datatable/).
+
+We will be using this DataTable component to present the people data we discussed in the previous section in a more organized and as it turns out a quite powerful way. 
+
+First we need to add the PrimeVue library to the application, using this command that is to be executed in the terminal:
+```
+npm install primevue --save
+```
+
+Then open file main.js and add the following lines - to import and subsequently initialize a number of PrimeVue resources:
+
+```
+import PrimeVue from 'primevue/config'; 
+import "primevue/resources/themes/lara-light-blue/theme.css";
+import Button from 'primevue/button';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import InputSwitch from 'primevue/inputswitch';
+import InputText from 'primevue/inputtext';
+import Dialog from 'primevue/dialog';
+import Tag from 'primevue/tag';
+
+app.use(PrimeVue);
+app.component('Button', Button);
+app.component('DataTable', DataTable);
+app.component('Column', Column);
+app.component('InputSwitch', InputSwitch);
+app.component('InputText', InputText);
+app.component('Dialog', Dialog);
+app.component('Tag', Tag);
+```
+
+With the preparations in place, we can now leverage the DataTable for real. We do so in file App.vue. Modify the contents op App.vue by pasting the following code snippet into it.
+
+```
+<script setup>
+  import { usePeopleStore } from './stores/peopleStore';
+  const peopleStore = usePeopleStore();
+</script>
+
+<template>
+  <h1>{{ peopleStore.peopleCount }} People</h1>
+  <DataTable :value="peopleStore.people" tableStyle="min-width: 50rem">
+    <Column field="first_name" header="First Name"> </Column>
+    <Column field="last_name" header="Last Name"> </Column>
+    <Column field="city" header="City"> </Column>
+    <Column field="countryOfOrigin" header="Country"> </Column>
+    <Column field="favoriteColor" header="Favorite Color"> </Column>
+  </DataTable>
+</template>
+```
+The DataTable component is linked to the data collection provided by in the peopleStore's people state element - the same one we used earlier in the unordered list produced by the *v-for* on the `<li>` element. Five columns are defined, each deriving its value from one of the properties in each person object in the people collection. The *field* attribute corresponds to the property name. The *header* attribute is used to set the label displayed on top of the column.
+
+![](images/data-table-people-1.png)
+
+This is all it takes to present the 150 people records in a structured way in a Data Table. And you have seen just the beginning of what the DataTable can do for us.
+
+
+Show the actual favorite color. Change the column definition for the favorite color column to:
+```
+    <Column field="favoriteColor" header="Favorite Color">
+      <template #body="slotProps">
+        <span
+          class="flex align-items-center gap-2"
+          :style="`background-color:${slotProps.data.favoriteColor}`"
+        >
+          {{ slotProps.data.favoriteColor }}
+        </span>
+      </template>
+    </Column>
+```
+
+Here we use a body slot for the Column component through which we provide the content to be rendered inside the column cell. This content consists of the value for favorite color with a background color of exactly that color. 
+
+To show off, let's do something really fancy. We add column drag & drop to the table. Add `reorderableColumns` to the DataTable tag, like so:
+```
+  <DataTable :value="peopleStore.people" tableStyle="min-width: 50rem" reorderableColumns>
+```
+
+Check the live web page and see how you can now drag columns around. Perhaps not the first thing you would go looking for, but impressive to inject by adding a single string inside the DataTable tag.  
+
+More useful probably is the ability to sort the records - by first name, last name or any other column. We can add this functionality for each column by adding the string `sortable` to the column tag. For example:
+
+```
+ <Column field="first_name" header="First Name" sortable> </Column>
+```
+
+Please make all columns sortable by adding the string *sortable* to their definition.
+![](images/data-table-sortable.png)
+
+The Data Table offers a nice feature: a global search filter. The value typed into that filter is used by the DataTable to filter out all records that do not contain the value in one of the designated search fields.
+
+In `<script>` make these changes - to import the required filter resources as well as the *reactive* mechanisms ref and computed. Then define the *filters* object as a reactive data element. The global filter is defined without a default value and with a filter mode of *contains*. Other options allow us to filter for example by exact match or start of the string.
+
+```
+  import { FilterMatchMode, FilterOperator } from "primevue/api";
+  import { ref, computed } from 'vue'
+
+  const filters = ref({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  })
+```
+
+Next, in order to make the DataTable show and apply the global filter, we need to define the filter in the `<DataTable>`. Add the following attributes - to associate the *filters* variable as the model for the filtering performed by the DataTable. Through globalFilterFields, indicate which fields should be used by DataTable to check if a record meets the filter criteria.
+
+```
+     v-model:filters="filters" :globalFilterFields="['first_name','last_name','city','countryOfOrigin']" filterDisplay="row"
+```
+
+Finally, as an additional child of `<DataTable>` add a template for the *header* slot that renders the field into which the user can type the value to be used for filtering. This field's model is associated with the *value* property in the *global* filter in the *filters* object - the same object associated with the *filter* attribute of the DataTable:
+```
+    <template #header>
+      <div class="flex flex-wrap align-items-center justify-content-between gap-2"
+      >
+        <InputText v-model="filters['global'].value" placeholder="search for" />
+      </div>
+    </template>
+```
+![](images/datatable-filtered.png)
+
+In addition to the global filter, the DataTable makes it also easily possible to define a filter on an individual coluumn. 
+
+add:
+filter
+expand
+
+https://stackblitz.com/edit/vitejs-vite-ccvueb?file=src%2FApp.vue
 
 ## i18n - internationalization
