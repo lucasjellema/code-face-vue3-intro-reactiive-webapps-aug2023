@@ -32,6 +32,8 @@ Useful resources:
     - [Vue Development with Stack Blitz](#vue-development-with-stack-blitz)
   - [State (optional)](#state-optional)
   - [UI Libraries](#ui-libraries)
+    - [Filter](#filter)
+    - [Row Expansion](#row-expansion)
   - [i18n - internationalization](#i18n---internationalization)
 
 
@@ -682,8 +684,12 @@ More useful probably is the ability to sort the records - by first name, last na
  <Column field="first_name" header="First Name" sortable> </Column>
 ```
 
+Make the column for *First Name* sortable like this and see the effect.  
+
 Please make all columns sortable by adding the string *sortable* to their definition.
 ![](images/data-table-sortable.png)
+
+### Filter
 
 The Data Table offers a nice feature: a global search filter. The value typed into that filter is used by the DataTable to filter out all records that do not contain the value in one of the designated search fields.
 
@@ -715,12 +721,94 @@ Finally, as an additional child of `<DataTable>` add a template for the *header*
 ```
 ![](images/datatable-filtered.png)
 
-In addition to the global filter, the DataTable makes it also easily possible to define a filter on an individual coluumn. 
+In addition to the global filter, the DataTable makes it also easily possible to define a filter on an individual column.To filter specifically on *country* as an example, you need to add a *template* to the column linked to the *filterModel*:
 
-add:
-filter
-expand
+```
+ <template #filter="{ filterModel, filterCallback }">
+        <InputText
+          v-model="filterModel.value"
+          type="text"
+          @input="filterCallback()"
+          class="p-column-filter"
+          placeholder="Search by country"
+        />
+      </template>
+```
 
-https://stackblitz.com/edit/vitejs-vite-ccvueb?file=src%2FApp.vue
+The definition of the *filters* variable needs to be extended with a filter definition for the *countryOfOrigin* column to:
+
+```
+const filters = ref({
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  countryOfOrigin: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+});
+```
+
+![](images/column-filter-country.png)
+
+
+### Row Expansion
+
+One final feature of the DataTable we will look at is *row expansion*. The people records contain more properties than those shown as columns. One easy way to making these properties available to a user in the context of a people record is by adding row expansion. This allows the user to expand and subsequently collapse individual rows - extending the row with an additional set of fields.
+
+Add a variable called *allExpandedRows* to the *script* section (note: the name does not matter as long as the name of the variable and the value of `v-model:expandedRows` correspond).
+
+```
+const allExpandedRows = ref([]);
+```
+
+Add this property to the *DataTable* element: `v-model:expandedRows="allExpandedRows"`.
+
+Then, add a *template* to the *DataTable* to specify the contents of the row expansion:
+
+```
+    <template #expansion="slotProps">
+      <div class="p-3">
+        <h5>Details</h5>
+        <p>Job: {{ slotProps.data.job_title }}</p>
+        <p>Email: {{ slotProps.data.email }}</p>
+        <p>Street: {{ slotProps.data.street }}</p>
+        <p>Shirt Size: {{ slotProps.data.shirtSize }}</p>
+        <p>Birth Date: {{ slotProps.data.birthDate }}</p>
+      </div>
+    </template>
+```
+
+The template name *expansion* is a special one, recognized by the Data Table component and used when the row is expanded. Feel free to make the expansion look prettier than it does right now... It really does not look great.
+
+![](images/row-expansion.png)
+
+One last touch: to expand or collapse all rows in one go, we do not need to do more than:
+
+add this HTML fragment to the *header template* in the DataTable
+
+```
+<div class="flex flex-wrap justify-content-end gap-2">
+        <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+        <Button
+          text
+          icon="pi pi-minus"
+          label="Collapse All"
+          @click="collapseAll"
+        />
+      </div>
+```
+
+And add two functions *expandAll* and *collapseAll* in the *script* section to handle the *Expand All* and *Collape All* events:
+
+```
+const expandAll = () => {
+    // add identifiers for all people records to the allExpandedRows collection
+    allExpandedRows.value = peopleStore.people.filter((p) => p.id);
+};
+
+const collapseAll = () => {
+    allExpandedRows.value = null;
+};
+```
+
+Load the final result for the People Data Table into your browser using this StackBlitz URL: https://stackblitz.com/edit/vitejs-vite-ccvueb?file=src%2FApp.vue
+
+![](images/collapse-expand-all.png)
 
 ## i18n - internationalization
