@@ -514,9 +514,42 @@ The [GitHub Repository](https://github.com/lucasjellema/code-face-vue3-intro-rea
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lucasjellema/code-face-vue3-intro-reactiive-webapps-aug2023)
 
-Once the Gitpod workspace is launched in your browser, the README.md document is opened in the browser based VS Code. Note: the actions that are performed are defined in the file `.gitpod.yml`.
+If you click on the button, you are prompted to launch a Gitpod workspace using a GitHub based authentication.
+![](images/launch-gitpod.png)
+To proceed, click on *Continue with GitHub*.
 
+Next, Gitpod allows you to configure the shape of the workspace. You can accept the proposed default.
+![](images/gitpod-workspace-shape.png)
+Click on Continue.
 
+While the workspace is started (backed by a Linux VM running somewhere in some cloud) you will see this:
+![](images/gitpod-being-launched.png)
+
+Once the Gitpod workspace is launched in your browser, the README.md document is opened in the browser based VS Code. Note: the configuration of the Gitpod workspace is defined in file `.gitpod.yml`.
+
+![](images/gitpod-running.png)
+
+To create a new Vue application, type the following command in the terminal:
+```
+npm create vue@latest
+```
+
+A CLI dialog kicks off. Provide the name for the new application and select whether to include TypeScript, JSX, Pinia, Testing and Linting. For now, any choice is OK, so you can just go with the defaults.
+![](images/create-vue-app.png)
+
+To get your new Vue application to run, follow the instructions:
+* change to the root directory for the new application
+* execute `npm install` to download and install all package dependencies (defined in `package.json`)
+* execute `npm run dev` to start the application in development mode
+
+You can now open the application in the browser at port 5173:
+![](images/launch-new-vue-app.png)
+The application that was scaffolded just now is opened in the browser.
+![](images/new-vue-app-running.png)
+
+You can now start making changes to the application. You work in the Gitpod workspace just as you can in StackBlitz and as you would on your laptop. The Gitpod workspace contains the language runtimes for Java, Node, Python, Go and Rust. It comes with tools such as Docker and Docker Compose, npm, Maven, pip and others preinstalled.
+
+Note: in order to develop your own Vue application in your own repository, you should clone the GitHub repository and launch Gitpod from the clone.
 
 ## State (optional)
 
