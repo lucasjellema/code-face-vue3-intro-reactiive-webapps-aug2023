@@ -875,3 +875,8 @@ Load the final result for the People Data Table into your browser using this Sta
 
 ## Publish Vue application through GitHub Page
 
+The People Application you have been working on is available in a GitHub repository that is Gitpod-enabled. This means that you can launch a Gitpod workspace for this repository and immediately have the Vue application running and the environment set up.
+
+This repository also provides instructions for publishing this application as a GitHub Pages application - a static website that is publicly accessible. On your phone and tablet and not just by you but by your parents and friends and everyone.
+
+Go to [this URL](https://github.com/lucasjellema/code-cafe-vue3-people-application). Then make a fork of the repository (because you can only create a GitHub Pages application in a repository you own or have required access to) and follow the instructions in the *README.md* document. In just a few steps you will not only have the People application running in a Gitpod workspace but also as a GitHub Pages static website. An example is available at this URL: [lucasjellema.github.io/code-cafe-vue3-people-application](https://lucasjellema.github.io/code-cafe-vue3-people-application/).
