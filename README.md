@@ -29,7 +29,8 @@ Useful resources:
     - [First simple steps with Reactive, Computed and Watch](#first-simple-steps-with-reactive-computed-and-watch)
     - [Reactive Example - Clock Adjustment](#reactive-example---clock-adjustment)
   - [Software Engineering](#software-engineering)
-    - [Vue Development with Stack Blitz](#vue-development-with-stack-blitz)
+    - [Vue Development with StackBlitz](#vue-development-with-stackblitz)
+    - [Vue Development Using Gitpod.io](#vue-development-using-gitpodio)
   - [State (optional)](#state-optional)
   - [UI Libraries](#ui-libraries)
     - [Refining Colmn Definition](#refining-colmn-definition)
@@ -480,7 +481,7 @@ One thing you may also enjoy during Vue application development is the browser e
 * [Edge Extension](https://microsoftedge.microsoft.com/addons/detail/vuejs-devtools/olofadcdnkkjdfgjcmjaadnlehnnihnl)
 
 
-### Vue Development with Stack Blitz
+### Vue Development with StackBlitz
 
 Open a clean Vue development environment in a browser by clicking on this link: [https://vite.new/vue](https://vite.new/vue).
 
@@ -504,6 +505,17 @@ You can do several additional interesting things with StackBlitz:
 * download the project as a zip-file
 
 Check out the [StackBlitz Documentation](https://developer.stackblitz.com/)
+
+### Vue Development Using Gitpod.io
+
+Gitpod.io provides an ephemeral cloud based development environment - a workspace with browser based VS Code and a Linux development environment with many tools and language runtimes pre-installed. Just for developing a front end application, Gitpod.io may feel like overkill compared to StackBlitz. However, once you want to include more backend - database, APIs - in the application or more extensive software engineering - fine tuning the extensions in VS Code, installing additional local tools, running Docker containers - it may be quite useful to step up to a Gitpod workspace.
+
+The [GitHub Repository](https://github.com/lucasjellema/code-face-vue3-intro-reactiive-webapps-aug2023) that contains this README.md file can be launched as Gitpod.io Workspace:
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lucasjellema/code-face-vue3-intro-reactiive-webapps-aug2023)
+
+Once the Gitpod workspace is launched in your browser, the README.md document is opened in the browser based VS Code. Note: the actions that are performed are defined in the file `.gitpod.yml`.
+
 
 
 ## State (optional)
